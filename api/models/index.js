@@ -13,7 +13,8 @@ const connect = sql.createConnection({
     password: PASSWORD
 })
  async function execQuery(sqlQuery){
-    console.log(sqlQuery)
+    console.log("QUERY:", sqlQuery)
+    console.log("")
     return new Promise((resolve, reject)=>{
         try {
             connect.query(sqlQuery,(err, result)=>{

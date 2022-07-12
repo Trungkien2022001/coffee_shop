@@ -10,7 +10,6 @@ function completeOrder(order, order_detail){
 }
 async function fetchGetAllOrder(req, res){
     const result = await execQuery('select * from `order`')
-    console.log(result)
     if (result.length == 0 ){
         return{
             err:true,
@@ -84,13 +83,330 @@ async function fetchGetOrder(req, res){
         message:"Them don hang thanh cong",
         data: result
     }
-    // let menuID = await execQuery(`select id from menu where name = '${data_order_detail[0].name}'`)
-    // console.log(menuID)
  }
+async function fetchUpdateOrder(req, res){
+    const id = req.query.id
+    const username = req.body.username||'Ẩn danh'
+    const note = req.body.note||'Không có'
+    const total_cost = req.body.total_cost
+    const payment = req.body.payment||"tiền mặt"
+    const status = req.body.status||"Thành công"
+    let data_order_detail_add = req.body.order_detail_add
+    let data_order_detail_remove = req.body.order_detail_remove
+    const check = await execQuery(`select * from \`order\` where id = ${id}`)
+    if(check.length == 0){
+        return {
+            err: true,
+            message:"Khong ton tai don hang"
+        }
+    }
+    const updateOrder = await execQuery(`update \`order\` set username = '${username}', note = '${note}', total_cost = ${total_cost},payment = '${payment}',status = '${status}'  where id = ${id}`)
+    if (!updateOrder) return {
+        err: true,
+        data: updateOrder,
+        message:"cap nhat don hang bi loi"
+    } 
+    for(item of data_order_detail_add){
+        let menuID = await execQuery(`select id from menu where name = '${item.name}'`)
+        if(!menuID) return{
+            err: true,
+            message:"Co loi khi cap nhat don hang",
+            data: detailResult
+        }
+        let detailResult = await execQuery(`insert into order_detail (order_id, menu_id, quantity) values(${id}, ${menuID[0].id}, ${item.quantity})`)
+        if(!detailResult) return{
+            err: true,
+            message:"Co loi cap nhat don hang",
+            data: detailResult
+        }
+    }
+    for(item of data_order_detail_remove){
+        let menuID = await execQuery(`select id from menu where name = '${item.name}'`)
+        if(!menuID) return{
+            err: true,
+            message:"Co loi khi cap nhat don hang",
+            data: detailResult
+        }
+        let detailResult = await execQuery(`delete from order_detail where order_id = ${id} and menu_id = ${menuID[0].id}`)
+        if(!detailResult) return{
+            err: true,
+            message:"Co loi cap nhat don hang",
+            data: detailResult
+        }
+    }
+    return{
+        err: false,
+        data:updateOrder,
+        message: "Cap nhat don hang thanh cong"
+    }   
+}
+async function fetchDeleteOrder(req, res){
+    const id = req.query.id
+    const check = await execQuery(`select * from \`order\` where id = ${id}`)
+    if(check.length == 0){
+        return {
+            err: true,
+            message:"Khong ton tai don hang"
+        }
+    }
+    const result = await execQuery(`delete from order_detail where order_id = ${id}`)
+    if(!result) return {
+        err: true,
+        message:"Co khi xoa don hang",
+        data: detailResult
+    }
+    const result1 = await execQuery(`delete from \`order\` where id = ${id}`)
+    if(!result1) return {
+        err: true,
+        message:"Co khi xoa don hang",
+        data: detailResult
+    }
+    return {
+        err: false,
+        data: result1, 
+        message:"xoa don hang thanh cong"
+    }
+
+}
+
+
+
+async function fetchGetAllMenu(req, res){
+    const result = await execQuery('select * from `menu`')
+    if (result.length == 0 ){
+        return{
+            err:true,
+            message:"Menu khong co du lieu"
+        }
+    }
+    return {
+        err:false,
+        data: result,
+        message:"Lay danh sach menu thanh cong"
+    }
+}
+async function fetchMenu(req, res){
+    const id = req.query.id
+    let result = await execQuery(`select * from \`menu\` where id = ${id}`)
+    if (result.length == 0 ){
+        return{
+            err:true,
+            message:"Khong ton tai menu"
+        }
+    }
+    return {
+        err:false,
+        data: result,
+        message:"Lay thong tin menu thanh cong"
+    }
+}
+async function fetchCreateMenu(req, res){
+    const name = req.body.name||'Ẩn danh'
+    const category_id = req.body.category_id||1
+    const price = req.body.price
+    const discount = req.body.discount||0
+    const detail = req.body.detail||""
+    const description= req.body.description||""
+    const image_path= req.body.image_path||""
+
+    const check = await execQuery(`select * from menu where name = '${name}'`)
+    if(check.length > 0 ) return {
+        err: true,
+        message:" ten san pham nay da ton tai trong he thong"
+    }
+    const result = await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${name}', ${category_id}, ${price}, ${discount}, '${detail}', '${description}', '${image_path}')`)
+    if(result.length == 0 ){
+        return{ 
+            err: true,
+            message:"them menu bi loi"
+        }
+    }
+    return{
+        err: false,
+        message:"Them menu thanh cong",
+        data: result
+    }
+ }
+ async function fetchUpdateMenu(req, res){
+    const id = req.query.id
+    const name = req.body.name||'Ẩn danh'
+    const category_id = req.body.category_id||1
+    const price = req.body.price
+    const discount = req.body.discount||0
+    const detail = req.body.detail||""
+    const description= req.body.description||""
+    const image_path= req.body.image_path||""
+    const check1 = await execQuery(`select * from \`menu\` where id = ${id}`)
+    if(check1.length == 0){
+        return {
+            err: true,
+            message:"Khong ton tai menu"
+        }
+    }
+    const check = await execQuery(`select * from menu where name = '${name}'`)
+    if(check.length > 0 ) return {
+        err: true,
+        message:" ten san pham nay da ton tai trong he thong"
+    }
+    const result = await execQuery(`update \`menu\` set name = '${name}', category_id = ${category_id}, price = ${price},discount = ${discount}, detail = '${detail}', description = '${description}', image_path = '${image_path}' where id = ${id}`)
+    if(result.length == 0 ){
+        return{ 
+            err: true,
+            message:"update menu bi loi"
+        }
+    }
+    return{
+        err: false,
+        message:"Update menu thanh cong",
+        data: result
+    }
+ }
+ async function fetchDeleteMenu(req, res){
+    const id = req.query.id
+    const check = await execQuery(`select * from \`menu\` where id = ${id}`)
+    if(check.length == 0){
+        return {
+            err: true,
+            message:"Khong ton tai menu"
+        }
+    }
+    const result = await execQuery(`delete from menu where id = ${id}`)
+    if(!result) return {
+        err: true,
+        message:"Co loi khi xoa menu",
+        data: detailResult
+    }
+    
+    return {
+        err: false,
+        data: result, 
+        message:"xoa menu thanh cong"
+    }
+
+}
+async function fetchGetAllEquipment(req, res){
+    const result = await execQuery('select * from `equiment`')
+    if (result.length == 0 ){
+        return{
+            err:true,
+            message:"khong co du lieu ve thiet bi"
+        }
+    }
+    return {
+        err:false,
+        data: result,
+        message:"Lay danh sach thiet bi thanh cong"
+    }
+}
+async function fetchEquipment(req, res){
+    const id = req.query.id
+    let result = await execQuery(`select * from \`equiment\` where id = ${id}`)
+    if (result.length == 0 ){
+        return{
+            err:true,
+            message:"Khong ton tai thiet bi"
+        }
+    }
+    return {
+        err:false,
+        data: result,
+        message:"Lay thong tin thiet bi thanh cong"
+    }
+}
+async function fetchCreateEquipment(req, res){
+    const name = req.body.name||'Ẩn danh'
+    const quantity = req.body.quantity||1
+    const year_of_manufacture = req.body.year_of_manufacture
+    const status= req.body.status||"Còn dùng được"
+
+    const check = await execQuery(`select * from equiment where name = '${name}'`)
+    if(check.length > 0 ) return {
+        err: true,
+        message:" ten thiet bi nay da ton tai trong he thong"
+    }
+    const result = await execQuery(`insert into \`equiment\` (name, quantity, year_of_manufacture, status) values('${name}', ${quantity}, ${year_of_manufacture}, '${status}')`)
+    if(result.length == 0 ){
+        return{ 
+            err: true,
+            message:"them thiet bi loi"
+        }
+    }
+    return{
+        err: false,
+        message:"Them thiet bi thanh cong",
+        data: result
+    }
+ }
+ async function fetchUpdateEquipment(req, res){
+    const id = req.query.id
+    const name = req.body.name||'Ẩn danh'
+    const quantity = req.body.quantity||1
+    const year_of_manufacture = req.body.year_of_manufacture
+    const status= req.body.status||"Còn dùng được"
+    const check1 = await execQuery(`select * from \`equiment\` where id = ${id}`)
+    if(check1.length == 0){
+        return {
+            err: true,
+            message:"Khong ton tai thiet bi"
+        }
+    }
+    const check = await execQuery(`select * from equiment where name = '${name}'`)
+    if(check.length > 0 ) return {
+        err: true,
+        message:" ten san pham nay da ton tai trong he thong"
+    }
+    const result = await execQuery(`update \`equiment\` set name = '${name}', quantity = ${quantity}, year_of_manufacture = ${year_of_manufacture}, status = '${status}' where id = ${id}`)
+    if(result.length == 0 ){
+        return{ 
+            err: true,
+            message:"update thiet bi loi"
+        }
+    }
+    return{
+        err: false,
+        message:"Update thiet bi thanh cong",
+        data: result
+    }
+ }
+ async function fetchDeleteEquipment(req, res){
+    const id = req.query.id
+    const check = await execQuery(`select * from \`equiment\` where id = ${id}`)
+    if(check.length == 0){
+        return {
+            err: true,
+            message:"Khong ton tai thiet bi"
+        }
+    }
+    const result = await execQuery(`delete from equiment where id = ${id}`)
+    if(!result) return {
+        err: true,
+        message:"Co loi khi xoa thiet bi",
+        data: detailResult
+    }
+    
+    return {
+        err: false,
+        data: result, 
+        message:"xoa thiet bi thanh cong"
+    }
+
+}
 
 
 module.exports = {
     fetchGetAllOrder,
     fetchGetOrder,
-    fetchCreateOrder
+    fetchCreateOrder,
+    fetchUpdateOrder,
+    fetchDeleteOrder,
+    fetchGetAllMenu,
+    fetchMenu,
+    fetchCreateMenu,
+    fetchUpdateMenu,
+    fetchDeleteMenu,
+    fetchGetAllEquipment,
+    fetchEquipment,
+    fetchCreateEquipment,
+    fetchUpdateEquipment,
+    fetchDeleteEquipment
 }
