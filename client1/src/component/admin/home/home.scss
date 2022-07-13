@@ -1,0 +1,34 @@
+
+.container{
+    .header{
+        width: 100%;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 600;
+    }
+    .btnContainer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button{
+            background-color: aqua;
+            border-radius: 10px;
+            margin: 5px;
+            width: 150px;
+            height: 40px;
+            font-size: 20px;
+        }
+        button:hover{
+            opacity: 0.7;
+        }
+        .choose{
+            background-color: crimson;
+        }
+    }
+    .tbContainer{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

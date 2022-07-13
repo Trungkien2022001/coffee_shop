@@ -1,0 +1,29 @@
+.container{
+    width: 100%;
+    table{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        font-weight: 500;
+        width: 90vw;
+        thead{
+            text-align: center;
+            font-size: 25px;
+            margin-bottom: 60px;
+            max-width: 100px;
+        }
+        tr{
+            margin-bottom:20px;
+        }
+        button{
+            border: none;
+            width: 60px;
+            height: 20px;
+            background-color: aqua;
+            margin: 5px;
+        }
+        button:hover{
+            opacity: 0.7;
+            background-color: aquamarine;
+        }
+    }
+}

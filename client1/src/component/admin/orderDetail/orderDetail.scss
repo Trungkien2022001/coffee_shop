@@ -1,0 +1,19 @@
+.container{
+    margin-left: 30px;
+    .infor{
+        font-size: 25px;
+    }
+
+    .infor-detail{
+        margin-top: 50px;
+        .detail_header{
+            font-size: 35px;
+        }
+        .order_detail{
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 300px;
+        }
+    }
+}
