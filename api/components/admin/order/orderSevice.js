@@ -51,12 +51,6 @@ async function fetchGetOrder(req, res){
     const payment = req.body.payment||"tiền mặt"
     const status = req.body.status||"Thành công"
     let data_order_detail = req.body.order_detail
-    // let dataCreate = {}
-    // if(username) dataCreate.username = username
-    // if(note) dataCreate.note = note
-    // if(total_cost) dataCreate.total_cost = total_cost
-    // if(payment) dataCreate.payment = payment
-    // if(status) dataCreate.status = status
     const result = await execQuery(`insert into \`order\` (username, note, total_cost, payment, status) values('${username}', '${note}', ${total_cost}, '${payment}', '${status}')`)
     if(result.length == 0 ){
         return{ 
@@ -66,15 +60,15 @@ async function fetchGetOrder(req, res){
     }
     for(item of data_order_detail){
         let menuID = await execQuery(`select id from menu where name = '${item.name}'`)
-        if(!menuID) return{
+        if(menuID.length == 0) return{
             err: true,
             message:"Co loi khi them san pham",
-            data: detailResult
+            data: menuID
         }
         let detailResult = await execQuery(`insert into order_detail (order_id, menu_id, quantity) values(${result.insertId}, ${menuID[0].id}, ${item.quantity})`)
         if(!detailResult) return{
             err: true,
-            message:"Co loi khi them san pham",
+            message:"Co loi khi them san pham - san pham khong ton tai trong he thong",
             data: detailResult
         }
     }
@@ -108,10 +102,10 @@ async function fetchUpdateOrder(req, res){
     } 
     for(item of data_order_detail_add){
         let menuID = await execQuery(`select id from menu where name = '${item.name}'`)
-        if(!menuID) return{
+        if(menuID.length == 0) return{
             err: true,
             message:"Co loi khi cap nhat don hang",
-            data: detailResult
+            data: menuID
         }
         let detailResult = await execQuery(`insert into order_detail (order_id, menu_id, quantity) values(${id}, ${menuID[0].id}, ${item.quantity})`)
         if(!detailResult) return{

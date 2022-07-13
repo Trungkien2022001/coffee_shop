@@ -1,7 +1,7 @@
 const execQuery = require("../../../models")
 
 async function fetchGetAllMenu(req, res){
-    const result = await execQuery('select * from `menu`')
+    const result = await execQuery('select * from `menu`  order by id desc')
     if (result.length == 0 ){
         return{
             err:true,
@@ -99,7 +99,7 @@ async function fetchCreateMenu(req, res){
             message:"Khong ton tai menu"
         }
     }
-    const result = await execQuery(`delete from menu where id = ${id}`)
+    const result = await execQuery(`update menu set status = 'Đã xóa' where id = ${id}`)
     if(!result) return {
         err: true,
         message:"Co loi khi xoa menu",
