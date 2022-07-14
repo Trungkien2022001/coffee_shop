@@ -7,7 +7,7 @@ import { Order } from '../order/Order'
 import { Personnel } from '../personnel/Personnel'
 import './home.scss'
 export const Home = () => {
-  const [page, setPage] = useState(4)
+  const [page, setPage] = useState(1)
   return (
     <div>
       <div className="container">
