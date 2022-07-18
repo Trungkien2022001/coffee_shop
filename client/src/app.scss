@@ -1,0 +1,22 @@
+
+
+:root {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    --color-bg-1: #125B50;
+    --color-bg-2: beige;
+    --color-bg-3: #FF6363;
+    --color-text-1: #F8B400;
+    --color-text-2: #FAF5E4;
+}
+.padding___main {
+    padding: 5px 50px;
+
+    @media only screen and (max-width: 1075px) {
+        padding: 5px 30px;
+    }
+
+    @media only screen and (max-width: 500px) {
+        padding: 5px 10px;
+    }
+}
+

@@ -1,0 +1,48 @@
+.cart-container{
+    display: flex;
+    width: 100%;
+    .cart-left{
+        
+        flex: 1;
+        .cartItem{    
+            width: 100%;
+            display: flex;
+            .stt{
+                flex: 0;
+                margin-right: 15px;
+            }
+            .img{
+                flex: 0;
+                margin-right: 20px;
+                img{
+                    border-radius: 10px;
+                }
+            }
+            .content{
+                flex: 2;
+                .name{
+                    font-size: 22px;
+                }
+                .name-detail{
+                    font-size: 24px;
+                    font-weight: 600;
+                }
+            }
+            .more{
+                flex: 1;
+                .header{
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+                .title{
+                    width: 80px;
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+    .cart-right{
+        flex: 1;
+    }
+}
