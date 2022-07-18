@@ -1,7 +1,11 @@
 const execQuery = require("../../../models")
 
 async function fetchGetAllMenu(req, res){
-    const result = await execQuery('select * from `menu`  order by id desc')
+    const type = req.query.type
+    let result
+    if(type == 0 || !type){
+        result = await execQuery(`select * from menu order by id desc`)
+    } else  result = await execQuery(`select * from menu where category_id = ${type} order by id desc`)
     if (result.length == 0 ){
         return{
             err:true,

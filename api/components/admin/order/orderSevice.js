@@ -50,8 +50,10 @@ async function fetchGetOrder(req, res){
     const total_cost = req.body.total_cost
     const payment = req.body.payment||"tiền mặt"
     const status = req.body.status||"Thành công"
+    const phone = req.body.phone||''
+    const address = req.body.address||''
     let data_order_detail = req.body.order_detail
-    const result = await execQuery(`insert into \`order\` (username, note, total_cost, payment, status) values('${username}', '${note}', ${total_cost}, '${payment}', '${status}')`)
+    const result = await execQuery(`insert into \`order\` (username, note, total_cost, payment, status, phone, address) values('${username}', '${note}', ${total_cost}, '${payment}', '${status}', '${phone}', '${address}')`)
     if(result.length == 0 ){
         return{ 
             err: true,
@@ -74,7 +76,7 @@ async function fetchGetOrder(req, res){
     }
     return{
         err: false,
-        message:"Them don hang thanh cong",
+        message:"Thêm đơn hàng thành công",
         data: result
     }
  }

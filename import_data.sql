@@ -117,21 +117,23 @@ CREATE TABLE IF NOT EXISTS `order` (
   `total_cost` int NOT NULL,
   `payment` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'Tiền mặt',
   `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `phone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
   `order_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table coffee_shop.order: ~9 rows (approximately)
-INSERT INTO `order` (`id`, `username`, `note`, `total_cost`, `payment`, `status`, `order_time`) VALUES
-	(1, 'Nguyễn Kiên', 'Cho nhiều nước xíu', 30000, 'MoMo', 'Hủy', '2022-07-12 02:04:13'),
-	(2, 'Nguyễn Lan anh', 'Cho ít muối', 90800, 'Tiền mặt', 'Thành công', '2022-07-12 02:04:36'),
-	(3, 'Nguyễn Văn định', 'Trà sữa không đá, kẹo bóc sẵn, mèo phải béo', 300000, 'Tiền mặt', 'Hủy', '2022-07-12 02:05:12'),
-	(4, 'Phạm B', 'Trà sphải béo', 30000, 'Tiền mặt', 'Thành công', '2022-07-12 02:05:39'),
-	(5, 'Đỗ thị nhung', '', 20000, 'Tiền mặt', 'Hủy', '2022-07-12 02:06:02'),
-	(6, 'Đỗ Văn tú', 'nhanhhhhhhh', 60000, 'Tiền mặt', 'Thành công', '2022-07-12 02:06:24'),
-	(7, 'Đỗ thị mai', 'nhdfgdfanhhhhhhh', 60000, 'Tiền mặt', 'Hủy', '2022-07-12 02:06:32'),
-	(8, 'Đặng xuân thắng', 'chó phải đpẹ', 600000, 'Tiền mặt', 'Thành công', '2022-07-12 02:06:47'),
-	(9, 'Đặng xuân', 'cdgfhó phải đpẹ', 600000, 'Tiền mặt', 'Thành công', '2022-07-12 02:06:52');
+INSERT INTO `order` (`id`, `username`, `note`, `total_cost`, `payment`, `status`, `phone`, `address`, `order_time`) VALUES
+	(1, 'Nguyễn Kiên', 'Cho nhiều nước xíu', 30000, 'MoMo', 'Hủy', NULL, NULL, '2022-07-12 02:04:13'),
+	(2, 'Nguyễn Lan anh', 'Cho ít muối', 90800, 'Tiền mặt', 'Thành công', NULL, NULL, '2022-07-12 02:04:36'),
+	(3, 'Nguyễn Văn định', 'Trà sữa không đá, kẹo bóc sẵn, mèo phải béo', 300000, 'Tiền mặt', 'Hủy', NULL, NULL, '2022-07-12 02:05:12'),
+	(4, 'Phạm B', 'Trà sphải béo', 30000, 'Tiền mặt', 'Thành công', NULL, NULL, '2022-07-12 02:05:39'),
+	(5, 'Đỗ thị nhung', '', 20000, 'Tiền mặt', 'Hủy', NULL, NULL, '2022-07-12 02:06:02'),
+	(6, 'Đỗ Văn tú', 'nhanhhhhhhh', 60000, 'Tiền mặt', 'Thành công', NULL, NULL, '2022-07-12 02:06:24'),
+	(7, 'Đỗ thị mai', 'nhdfgdfanhhhhhhh', 60000, 'Tiền mặt', 'Hủy', NULL, NULL, '2022-07-12 02:06:32'),
+	(8, 'Đặng xuân thắng', 'chó phải đpẹ', 600000, 'Tiền mặt', 'Thành công', NULL, NULL, '2022-07-12 02:06:47'),
+	(9, 'Đặng xuân', 'cdgfhó phải đpẹ', 600000, 'Tiền mặt', 'Thành công', NULL, NULL, '2022-07-12 02:06:52');
 
 -- Dumping structure for table coffee_shop.order_detail
 CREATE TABLE IF NOT EXISTS `order_detail` (
@@ -144,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   KEY `order_id` (`order_id`),
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
   CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table coffee_shop.order_detail: ~46 rows (approximately)
 INSERT INTO `order_detail` (`id`, `order_id`, `menu_id`, `quantity`) VALUES
