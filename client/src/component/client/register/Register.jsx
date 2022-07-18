@@ -2,9 +2,10 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import "./register.scss";
+import { Navigate } from "react-router-dom";
 
 export const Register = () => {
-  // const [data, setData] = useState();
+  const [check, setCheck] = useState(false)
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -19,11 +20,19 @@ export const Register = () => {
       name,
       username,
       email
+    }).then((res)=>{
+      if(!res.data.err){
+        alert(res.data.message)
+        setCheck(true)  
+      } else{
+        alert(res.data.message)
+      }
     });
   };
 
   return (
     <div className="container">
+      {check &&<Navigate  to="/" replace={true}/>}
       <div className="register-form">
         <input
           type="text"

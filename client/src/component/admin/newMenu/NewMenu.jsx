@@ -1,10 +1,13 @@
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
+import { NotAllow } from '../../../components/notAllow/NotAllow'
 import './newMenu.scss'
 export const NewMenu = () => {
     // const [image, setImage] = useState('')
+    const currentUser = useSelector((state) => state.user);
     const [name, setName] = useState('')
     const [productImage, setProductImage] = useState([]);
     const [files, setFiles] = useState("");
@@ -63,7 +66,10 @@ export const NewMenu = () => {
     }
     return (
         <div>
-            <div className="container1">
+            {!currentUser.isAdmin ? (
+        <NotAllow></NotAllow>
+      ) : (
+        <div className="container1">
                 <div className="lkrtrlkht">
                     <Link to={'../'}>Quay về trang chủ</Link>
                 </div>
@@ -127,6 +133,8 @@ export const NewMenu = () => {
                 </div>
                 <button onClick={e=>handleSubmit(e)}>Thêm Menu</button>
             </div>
+      )}
+           
         </div>
     )
 }

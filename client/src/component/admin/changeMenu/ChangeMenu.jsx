@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './changeMenu.scss'
 export const ChangeMenu = () => {
-  const id = useLocation().pathname.split('/')[2]
+  const id = useLocation().pathname.split('/')[3]
   const [oldData, setOldData] = useState({})
   const [name, setName] = useState('')
   const [category, setCategory] = useState(1)

@@ -2,7 +2,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import './order.scss'
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { NotAllow } from '../../../components/notAllow/NotAllow';
 export const Order = () => {
+    const currentUser = useSelector((state) => state.user);
     const [check, setCheck] = useState(false)
     const [data, setData] = useState({})
     useEffect(()=>{
@@ -17,7 +20,10 @@ export const Order = () => {
     }
     return (
         <div>
-            <div className="container">
+            {!currentUser.isAdmin ? (
+        <NotAllow></NotAllow>
+      ) : (
+        <div className="container">
                 <table>
                     <thead>
                         <tr>
@@ -56,6 +62,8 @@ export const Order = () => {
                     </tbody>
                 </table>
             </div>
+      )}
+            
         </div>
     )
 }

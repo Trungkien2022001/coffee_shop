@@ -3,9 +3,12 @@ import socketIOClient  from 'socket.io-client'
 import { useEffect } from 'react'
 import { useRef } from 'react'
 import './adminhomepage.scss'
+import { useSelector } from 'react-redux'
+import { NotAllow } from '../../../components/notAllow/NotAllow'
 const host = 'http://localhost:1234'
 
 export const AdminHomepage = () => {
+  const currentUser = useSelector((state) => state.user);
   const [mess, setMess] = useState([{}])
   const [message,setMessage] = useState('')
   const [id,setId] = useState()
@@ -47,7 +50,11 @@ export const AdminHomepage = () => {
   }
   return (
     <div className='AdHContainer'>
-      <div className='messageContainer'>
+      {!currentUser.isAdmin ? (
+        <NotAllow></NotAllow>
+      ) : (
+       <>
+       <div className='messageContainer'>
         {mess &&mess.map((m, index) => 
           <div key={index} className={`${m.id === id ? 'your-message' : 'other-people'} chat-item`}>
            <div className='userID'>
@@ -71,6 +78,9 @@ export const AdminHomepage = () => {
             Send
           </button>
       </div>
+       </>
+      )}
+      
     </div>
     
   )

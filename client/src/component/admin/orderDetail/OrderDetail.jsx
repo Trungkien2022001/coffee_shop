@@ -1,8 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from "react-router-dom";
+import { NotAllow } from '../../../components/notAllow/NotAllow';
 import './orderDetail.scss'
 export const OrderDetail = () => {
+    const currentUser = useSelector((state) => state.user);
     const location = useLocation()
     const id = location.pathname.split('/')[2]
     const [data, setData] = useState({})
@@ -13,6 +16,9 @@ export const OrderDetail = () => {
     },[id])
   return (
     <div>
+        {!currentUser.isAdmin ? (
+        <NotAllow></NotAllow>
+      ) : (
         <div className="container">
         <Link to={'../'}>Quay về trang chủ</Link>
             <div className="header">
@@ -54,6 +60,8 @@ export const OrderDetail = () => {
                 ))}
             </div>
         </div>
+      )}
+        
     </div>
   )
 }

@@ -13,11 +13,9 @@ export const Homepage = () => {
     const getData = async ()=>{
       const res = await axios.get(`/admin/getMenus?type=${type}`)
       setProductList(res.data.data)
-      console.log(res);
     }
     getData()
   },[type])
-  console.log(productList);
   return (
     <div>
       <Header></Header>

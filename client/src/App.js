@@ -10,6 +10,7 @@ import './app.scss'
 import { Product } from './component/client/product/Product';
 import Login from './component/client/login/Login';
 import { Register } from './component/client/register/Register';
+import { NotFound } from './components/notFound/NotFound';
 function App() {
   return (
     <div className="App">
@@ -26,6 +27,7 @@ function App() {
           <Route path='admin/newOrder' element = {<NewOrder/>}/>
           <Route path='admin/newMenu' element = {<NewMenu/>}/>
           <Route path='admin/changeMenu/:id' element = {<ChangeMenu/>}/>
+          <Route path='*' element = {<NotFound/>}/>
         </Routes>
       </BrowserRouter>
     </div>
