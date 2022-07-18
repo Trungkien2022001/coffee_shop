@@ -2,6 +2,7 @@
 const express = require("express")
 require('dotenv').config
 const adminRoute = require('./routes/admin')
+const authRoute = require('./routes/auth')
 const PORT = 1234
 const app = express()
 const server = require('http').createServer(app);
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/', adminRoute)
+app.use('/auth', authRoute)
 
 
 socketIo.on("connection", (socket) =>{
