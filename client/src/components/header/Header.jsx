@@ -6,17 +6,22 @@ import { Link} from 'react-router-dom'
 export const Header = () => {
   return (
     <div className='header-container'>
-        <div className="name">
-            BK COFFEE
-        </div>
+        <Link style={{color:'black', textDecoration:'none'}} to={'/'}>
+            <div className="name">
+                BK COFFEE
+            </div>
+        </Link>
+       
         <div className="title">
-            Hãy đến với bk coffee, bạn sẽ tận hưởng những thứ tốt đẹp nhất
+            Hãy đến với bk coffee, bạn sẽ tận hưởng những thứ tốt đẹp nhất. One love, one future
         </div>
         <div className="btn">
-            <div className="userBtn">
-                <FontAwesomeIcon icon={faUser} />
-            </div>
-            <Link to = './cart'>
+        <Link style={{color:'black'}} to = '/admin'>
+                <div className="cartBtn">
+                    <FontAwesomeIcon icon={faUser} />
+                </div>
+            </Link>
+            <Link style={{color:'black'}} to = '/cart'>
                 <div className="cartBtn">
                     <FontAwesomeIcon icon={faCartShopping} />
                 </div>

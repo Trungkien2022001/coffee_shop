@@ -2,14 +2,19 @@
     display: flex;
     width: 100%;
     .cart-left{
-        
+        margin-right: 40px;
         flex: 1;
         .cartItem{    
+            position: relative;
+            margin-bottom: 20px;
+            border-bottom: 1px solid black;
             width: 100%;
             display: flex;
             .stt{
                 flex: 0;
                 margin-right: 15px;
+                margin-top: 25px;
+                font-size: 25px;
             }
             .img{
                 flex: 0;
@@ -19,17 +24,18 @@
                 }
             }
             .content{
-                flex: 2;
+                width: 35%;
                 .name{
                     font-size: 22px;
                 }
                 .name-detail{
-                    font-size: 24px;
-                    font-weight: 600;
+                    font-size: 22px;
+                    font-weight: 550;
                 }
             }
             .more{
-                flex: 1;
+                margin-top: 8px;
+                width: 20%;
                 .header{
                     font-size: 18px;
                     margin-bottom: 10px;
@@ -40,9 +46,74 @@
                     justify-content: space-between;
                 }
             }
+            .delete{
+                position: absolute;
+                right: 5px;
+                font-size: 25px;
+                font-weight: bold;
+                cursor: pointer;
+            }
         }
     }
     .cart-right{
         flex: 1;
+        .header{
+            text-align: center;
+            font-size: 25px;
+            font-weight: 550;
+            margin-bottom: 25px;
+        }
+        .right-container{
+            display: flex;
+            .cost{
+                margin-right: 20px;
+                .total{
+                    margin-bottom: 24px;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+                .input{
+                    select{
+                        width: 150px;
+                        font-size: 16px;
+                        text-align: center;
+                        height: 30px;
+                        border-radius: 10px;
+                    }
+                }
+            }
+            .info{
+                .input{
+                    margin-bottom: 15px;
+                    input{
+                        width: 250px;
+                        height: 40px;
+                        border-radius: 10px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        .submit{
+            margin-top: 20px;
+            margin-left: 20%;
+            button{
+                width: 300px;
+                height: 50px;
+                border: none;
+                font-size: 25px;
+                background-color: aquamarine;
+                border-radius: 15px;
+                cursor: pointer;
+            }
+            button:hover{
+                opacity: 0.7;
+            }
+        }
+    }
+}
+@media screen and(max-width: 800px) {
+    .cart-container{
+        flex-direction: column;
     }
 }
