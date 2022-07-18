@@ -8,6 +8,8 @@ import { Cart } from './component/client/cart/Cart';
 import { Homepage } from './component/client/home/Homepage';
 import './app.scss'
 import { Product } from './component/client/product/Product';
+import Login from './component/client/login/Login';
+import { Register } from './component/client/register/Register';
 function App() {
   return (
     <div className="App">
@@ -15,6 +17,8 @@ function App() {
         <Routes>
 
           <Route path='/' element = {<Homepage/>}/>
+          <Route path='/login' element = {<Login/>}/>
+          <Route path='/register' element = {<Register/>}/>
           <Route path='/cart' element = {<Cart/>}/>
           <Route path='/product/:id' element = {<Product/>}/>
           <Route path='admin/' element = {<Home/>}/>

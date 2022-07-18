@@ -13,9 +13,11 @@ export const Homepage = () => {
     const getData = async ()=>{
       const res = await axios.get(`/admin/getMenus?type=${type}`)
       setProductList(res.data.data)
+      console.log(res);
     }
     getData()
   },[type])
+  console.log(productList);
   return (
     <div>
       <Header></Header>
@@ -34,7 +36,7 @@ export const Homepage = () => {
             Danh sách sản phẩm
         </div>
         <div className="product">
-          {productList && productList.map((item, key)=>(
+          {productList &&productList.length && productList.map((item, key)=>(
             <Link key={key} style={{color:'black', textDecoration:'none'}} to={`/product/${item.id}`}>
             <div  className="product-item">
               <div className="productImg">
