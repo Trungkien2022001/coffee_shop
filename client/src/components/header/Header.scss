@@ -27,11 +27,12 @@
             position: relative;
             .popupUser{
                 display: none;
+                text-align: center;
                 top: 20px;
-                left: -30px;
+                left: -60px;
                 z-index: 10;
                 position: absolute;
-                width: 80px;
+                width: 125px;
                 background-color: antiquewhite;
                 .title{
                     color: orange;

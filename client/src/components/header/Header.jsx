@@ -34,7 +34,9 @@ export const Header = () => {
           </Link>
         ) : (
           <div className="cartBtn" style={{ marginRight: "20px" }}>
-            <FontAwesomeIcon icon={faUser} style={{ color: "red" }} />
+            <Link to={'/user'}>
+              <FontAwesomeIcon icon={faUser} style={{ color: "red" }} />
+            </Link>
             <div className="popupUser">
               {user.isAdmin ? (
                 <Link style={{ color: "black", textDecoration: "none" }} to={"/admin"}>

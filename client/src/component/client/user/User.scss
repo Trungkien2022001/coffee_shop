@@ -1,0 +1,27 @@
+.user-container {
+    justify-content: space-between;
+    display: flex;
+    .title{
+        text-align: center;
+        font-size: 22px;
+        font-weight: 550;
+    }
+    .infor{
+        font-size: 18px;
+        max-width: 400px;
+        flex: 1;
+        .detail{
+            .content1{
+                max-width: 350px;
+                overflow-x: scroll;
+
+            }
+        }
+    }
+    .cart-history{
+        flex: 1;
+    }
+    .login-history{
+        flex: 1;
+    }
+}
