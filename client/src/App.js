@@ -11,6 +11,7 @@ import { Product } from './component/client/product/Product';
 import Login from './component/client/login/Login';
 import { Register } from './component/client/register/Register';
 import { NotFound } from './components/notFound/NotFound';
+import { User } from './component/client/user/User';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,8 @@ function App() {
         <Routes>
 
           <Route path='/' element = {<Homepage/>}/>
+          <Route path='/user' element = {<User/>}/>
+          <Route path='/:id' element = {<Homepage/>}/>
           <Route path='/login' element = {<Login/>}/>
           <Route path='/register' element = {<Register/>}/>
           <Route path='/cart' element = {<Cart/>}/>

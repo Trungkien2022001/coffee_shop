@@ -1,21 +1,22 @@
-async function authenticate(req, res){
+const execQuery = require("../models")
+
+async function authenticate(req, res, next){
     try {
         const auth =  req.headers ? req.headers.authorization : '{}'
+        if( !auth){
+            res.end('Ban khong co quyen truy cap api nay')
+        }else{
         const token =  JSON.parse(auth)
         console.log(token)
-        let user = await find({
-            attributes: ['id', 'username', 'isAdmin', 'firstname', 'lastname', 'address', 'phone', 'email'],
-            table: 'user',
-            where: `id = ${token.user_id} AND privateKey = ${token.pk}`
-        })
-        if (!user.length){ // không tìm thấy user nào
-            return 0
-        }
-        req.user = user[0]
-        return 1;
+        const result = await execQuery(`select * from user where username = '${token.username}' and token = '${token.token}'`)
+        if(result.length == 0){
+            res.status(404).end('Bạn không có quyền truy cập api này, Hãy đăng nhập với tư cách quản trị viên')
+        } else next()
+    }
         
     } catch (error) {
-        return 0
+        console.log(error)
+        res.end('Bạn không có quyền truy cập API này')
     }
 }
 module.exports = {

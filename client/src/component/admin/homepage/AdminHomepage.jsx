@@ -1,87 +1,62 @@
-import React, { useState } from 'react'
-import socketIOClient  from 'socket.io-client'
+import axios from 'axios'
+import React from 'react'
 import { useEffect } from 'react'
-import { useRef } from 'react'
+import { useState } from 'react'
 import './adminhomepage.scss'
-import { useSelector } from 'react-redux'
-import { NotAllow } from '../../../components/notAllow/NotAllow'
-const host = 'http://localhost:1234'
-
 export const AdminHomepage = () => {
-  const currentUser = useSelector((state) => state.user);
-  const [mess, setMess] = useState([{}])
-  const [message,setMessage] = useState('')
-  const [id,setId] = useState()
-  const socketRef = useRef()
-  // const messageEnd = useRef();
-  const sendMessage = () => {
-    // console.log(id)
-    if(message !== null) {
-      const msg = {
-        content: message, 
-        id: id||0
-      }
-      socketRef.current.emit('sendDataClient', msg)
-      setMessage('')
-    }
-    console.log(mess)
-  }
-  useEffect(() => {
-    socketRef.current = socketIOClient.connect(host)
-    socketRef.current.on('connect', () => {
-     setId(socketRef.current.id)
-  })
-    socketRef.current.on('sendDataServer', dataGot => {
-      setMess(oldMsgs => [...oldMsgs, dataGot.data])
-    })
-
-    return () => {
-      socketRef.current.disconnect();
-    };
-  }, []);
-  const handleChange = (e) => {
-    setMessage(e.target.value)
-  }
-
-  const onEnterPress = (e) => {
-    if(e.keyCode === 13 && e.shiftKey === false) {
-      sendMessage()
-    }
-  }
+    const [data, setData] = useState({})
+    useEffect(()=>{
+      axios.get('/admin/getInfo').then(res => {
+        setData(res.data.data)
+        console.log(res.data.data)
+      })
+    },[])
   return (
-    <div className='AdHContainer'>
-      {!currentUser.isAdmin ? (
-        <NotAllow></NotAllow>
-      ) : (
-       <>
-       <div className='messageContainer'>
-        {mess &&mess.map((m, index) => 
-          <div key={index} className={`${m.id === id ? 'your-message' : 'other-people'} chat-item`}>
-           <div className='userID'>
-            {m.content && 
-            <div>user_id: {m.id}</div>} 
-           </div>
-           <div className='content'>
-           {m.content}
-            </div>
+    <div className='admin-homepage-container padding___main'>
+      {data && <>
+      <div className="left">
+         <div className="title">
+        Tổng doanh thu: {data.countTotal}
+      </div>
+        <div className="title">
+        Tổng số người dùng: {data.countUser}
+      </div>
+      <div className="title">
+        Tổng số menu của quán: {data.countMenu}
+      </div>
+      <div className="title">
+        Tổng số đơn hàng: {data.countOrder}
+      </div>
+      <div className="title">
+        Tổng số đơn hàng thành công: {data.countOrderSuccess}
+      </div>
+      <div className="title">
+        Tổng số đơn hàng bị hủy: {data.countOrderFail}
+      </div>
+      </div>
+      
+      <div className="right">
+      
+        <div className="header">
+          Doanh thu theo từng tháng
           </div>
-        )}
-      </div>
-      <div className="send-box">
-          <textarea 
-            value={message}  
-            onKeyDown={onEnterPress}
-            onChange={handleChange} 
-            placeholder="Nhập tin nhắn ..." 
-          />
-          <button onClick={sendMessage}>
-            Send
-          </button>
-      </div>
-       </>
-      )}
+          {data.countTotalMonth&& data.countTotalMonth.map((item, index)=>(
+            <div key={index} className='item'>
+              <div className="header">
+                Tháng {item['thang']}: {item['doanh_thu_thang']}đ
+              </div>
+              <div className="title">
+
+              </div>
+            </div>
+          ))}
+        </div>
+      
+       
+      </>}
       
     </div>
-    
   )
 }
+
+

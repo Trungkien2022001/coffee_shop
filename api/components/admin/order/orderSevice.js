@@ -9,7 +9,10 @@ function completeOrder(order, order_detail){
     return order
 }
 async function fetchGetAllOrder(req, res){
-    const result = await execQuery('select * from `order`')
+    const page = req.query.page
+    const offset = parseInt(16 * (page - 1))
+    count = await execQuery(`select count(id) as cnt from \`order\``)
+    const result = await execQuery(`select * from \`order\` limit 16 offset ${offset}`)
     if (result.length == 0 ){
         return{
             err:true,
@@ -18,7 +21,10 @@ async function fetchGetAllOrder(req, res){
     }
     return {
         err:false,
-        data: result,
+        data: {
+            result,
+            count: Math.floor(count[0].cnt / 16) + 1
+        },
         message:"Lay danh sach order thanh cong"
     }
 }
@@ -151,7 +157,7 @@ async function fetchDeleteOrder(req, res){
         message:"Co khi xoa don hang",
         data: detailResult
     }
-    const result1 = await execQuery(`delete from \`order\` where id = ${id}`)
+    const result1 = await execQuery(`update \`order\` set status = 'Hủy' where id = ${id}`)
     if(!result1) return {
         err: true,
         message:"Co khi xoa don hang",

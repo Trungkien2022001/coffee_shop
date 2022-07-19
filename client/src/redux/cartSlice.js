@@ -12,7 +12,7 @@ export const cartSlice = createSlice({
             state.total_cost += action.payload.product.price*action.payload.quantity
             state.discount += parseInt(action.payload.product.price*action.payload.product.discount /100)*action.payload.quantity
             const index = state.productList.findIndex(e =>e.product.id === action.payload.product.id)
-            if(index !== -1) state.productList[index].quantity += action.payload.quantity
+            if(index !== -1) state.productList[index].quantity += parseInt(action.payload.quantity)
             else{
                 state.productList.push(action.payload)
             }

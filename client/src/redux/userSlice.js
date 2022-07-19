@@ -6,7 +6,7 @@ export const userSlice = createSlice({
         username:null,
         isAdmin: 0,
         token:null,
-        name:null
+        name:'Guest'
     },
     reducers:{
         login:(state, action)=>{
@@ -19,7 +19,7 @@ export const userSlice = createSlice({
             state.username = null
             state.isAdmin = 0
             state.token = null
-            state.name =null
+            state.name ='Guest'
         }
     } 
 })

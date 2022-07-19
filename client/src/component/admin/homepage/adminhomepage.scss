@@ -1,27 +1,17 @@
-.AdHContainer{
-    font-size: 20px;
-    .messageContainer{
-        border: 1px solid red;
-        min-width: 70vw;
-        min-height: 40vh;
-        font-size: 20px;
-        .your-message{
-            .userID{font-size: 10px;}
-            text-align: right;
-            .content{
-
-                padding: 10px;
-                color: blue;
-            }
+.admin-homepage-container{
+    display: flex;
+    width: 100%;
+    text-align: left;
+    .title{
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .right{
+        margin-left: 50px;
+        font-size: 25px !important;
+        .item{
+            font-size: 20px;
+            font-weight: normal;
         }
-        .other-people{
-            text-align: left;
-            .userID{font-size: 10px;}
-            .content{
-                padding: 0px 10px 10px 10px;
-                color: black;
-            }
-        }
-
     }
 }

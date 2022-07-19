@@ -3,8 +3,11 @@ import { useState } from "react";
 import axios from "axios";
 import "./register.scss";
 import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userSlice } from "../../../redux/userSlice";
 
 export const Register = () => {
+  const dispatch = useDispatch()
   const [check, setCheck] = useState(false)
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -20,19 +23,30 @@ export const Register = () => {
       name,
       username,
       email
-    }).then((res)=>{
-      if(!res.data.err){
+    }).then((res) => {
+      if (!res.data.err) {
+        axios
+          .post("auth/login", {
+            username,
+            password,
+          })
+          .then((res) => {
+            if (!res.data.err) {
+              dispatch(userSlice.actions.login(res.data.data[0]))
+            }
+          });
         alert(res.data.message)
-        setCheck(true)  
-      } else{
+        setCheck(true)
+      } else {
         alert(res.data.message)
       }
     });
+
   };
 
   return (
     <div className="container">
-      {check &&<Navigate  to="/" replace={true}/>}
+      {check && <Navigate to="/" replace={true} />}
       <div className="register-form">
         <input
           type="text"

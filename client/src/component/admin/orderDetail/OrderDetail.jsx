@@ -7,7 +7,7 @@ import './orderDetail.scss'
 export const OrderDetail = () => {
     const currentUser = useSelector((state) => state.user);
     const location = useLocation()
-    const id = location.pathname.split('/')[2]
+    const id = location.pathname.split('/')[3]
     const [data, setData] = useState({})
     useEffect(()=>{
       axios.get(`/admin/get_order?id=${id}`).then(res => {
@@ -20,7 +20,7 @@ export const OrderDetail = () => {
         <NotAllow></NotAllow>
       ) : (
         <div className="container">
-        <Link to={'../'}>Quay về trang chủ</Link>
+        <Link to={'/admin'}>Quay về trang chủ</Link>
             <div className="header">
                 Đơn hàng chi tiết
             </div>

@@ -19,11 +19,14 @@ export const Header = () => {
       </Link>
 
       <div className="title">
-        Hãy đến với bk coffee, bạn sẽ tận hưởng những thứ tốt đẹp nhất. One
-        love, one future
+        <div>
+          Hãy đến với bk coffee, bạn sẽ tận hưởng những thứ tốt đẹp nhất
+        </div>
+        {user.name !=='Guest'? <div className="hello">Hello, {user.name}</div>:<>One love, one future</> }
       </div>
       <div className="btn">
-        {!user.name ? (
+        
+        {user.name ==='Guest' ? (
           <Link style={{ color: "black", marginRight: "20px" }} to="/login">
             <div className="cartBtn">
               <FontAwesomeIcon icon={faUser} />

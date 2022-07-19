@@ -44,7 +44,7 @@ export const Cart = () => {
       payment: payment,
       order_detail,
       total_cost: total_cost - discount,
-      status: 'Chờ xác nhận'
+      status: 'Thành công'
     }
     axios.post('/admin/create_order', data).then((res)=>{
       alert(res.data.message)

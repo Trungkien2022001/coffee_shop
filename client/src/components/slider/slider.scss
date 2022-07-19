@@ -1,0 +1,19 @@
+.slider{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    .wrapper{ 
+        .sliders{
+            display: flex;
+            flex-direction: row;
+            transition: all 0.5s ease;
+            .slide-item{
+                // width: 800px !important;
+                width: auto;
+                height: 150px;
+            }
+        }
+    }
+}

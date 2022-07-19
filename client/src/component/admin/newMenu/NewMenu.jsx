@@ -71,7 +71,7 @@ export const NewMenu = () => {
       ) : (
         <div className="container1">
                 <div className="lkrtrlkht">
-                    <Link to={'../'}>Quay về trang chủ</Link>
+                    <Link to={'/admin'}>Quay về trang chủ</Link>
                 </div>
                 <div className='information'>
                     <div className="input">

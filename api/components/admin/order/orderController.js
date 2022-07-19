@@ -13,17 +13,17 @@ async function getOrder(req, res){
 }
 async function createOrder(req, res){
     const result = await fetchCreateOrder(req, res)
-    if(result.edd) res.end(errorResponse(result))
+    if(result.err) res.end(errorResponse(result))
     else res.status(200).end(successResponse(result))
 }
 async function updateOrder(req, res){
     const result = await fetchUpdateOrder(req, res)
-    if(result.edd) res.end(errorResponse(result))
+    if(result.err) res.end(errorResponse(result))
     else res.status(200).end(successResponse(result))
 }
 async function deleteOrder(req, res){
     const result = await fetchDeleteOrder(req, res)
-    if(result.edd) res.end(errorResponse(result))
+    if(result.err) res.end(errorResponse(result))
     else res.status(200).end(successResponse(result))
 }
 

@@ -12,8 +12,11 @@
         font-weight: bold;
     }
     .title{
+        padding-left: 10%;
+        display: flex;
         flex: 4;
         text-align: center;
+        justify-content: space-around;
     }
     .btn{
         justify-content: center;

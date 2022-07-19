@@ -1,4 +1,5 @@
 .product-container{
+    position: relative;
     .container-header{
         padding: 10px 20px;
         width: 100%;
@@ -6,10 +7,11 @@
         justify-content: space-between;
         align-items: center;
         height: 30px;
-        background-color: lawngreen;
+        background-color: beige;
         .item{
             font-size: 18px;
             text-align: center;
+            font-weight: 600;
             cursor: pointer;
         }
     }
@@ -74,4 +76,93 @@
             }
         }
     }
+}
+.chat{
+    position: fixed;
+    z-index: 1;
+    bottom: 20px;
+    right: 30px;
+    cursor: pointer;
+    img{
+        width: 60px;
+        height: auto;
+    }
+}
+.chatbox{
+    min-width: 300px;
+    position: fixed;
+    z-index: 1;
+    bottom: 20px;
+    right: 30px;
+    .chat-header{
+        background-color: aqua;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .chat-header-ctn{
+            margin-right: 10px;
+        }
+        .title{
+            margin-left: 10px;
+        }
+    }
+    .chat-container{
+        overflow-y: scroll;
+        width: 300px;
+        padding: 0px 10px ;
+        height: 300px;
+        background-color: beige;
+        .user-container{
+            font-size: 15px;
+            padding: 10px 0px;
+            display: flex;
+            justify-content: flex-end;
+            .user{
+                display: flex;
+                max-width: 250px;
+                .name{
+                    margin-left: 10px;
+                    font-weight: bold;
+
+                }
+                .message{
+                    background-color: aqua;
+                }
+            }
+        }
+        .other-container{
+            font-size: 15px;
+            padding: 10px 0px;
+            display: flex;
+            justify-content: flex-start;
+            .other{
+                display: flex;
+                max-width: 250px;
+                .name{
+                    margin-right: 10px;
+                    font-weight: bold;
+
+                }
+                .message{
+                    background-color: gold;
+                }
+            }
+        }
+        
+    }
+    .input{
+        input{
+            height: 25px;
+            width: 250px;
+        }
+        button{
+            height: 31px;
+            width:63px;
+            background-color: aqua;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+  
 }

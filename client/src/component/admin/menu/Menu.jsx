@@ -1,3 +1,4 @@
+import { Pagination, Stack } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -5,18 +6,19 @@ import {Link} from 'react-router-dom'
 import { NotAllow } from '../../../components/notAllow/NotAllow'
 import './menu.scss'
 export const Menu = () => {
+    const [numPage, setNumpage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
     const currentUser = useSelector((state) => state.user);
     const [check, setCheck] = useState(false)
     const [data, setData] = useState({})
     useEffect(()=>{
-      axios.get('/admin/getMenus').then(res => {
-        setData(res.data.data)
+      axios.get(`/admin/getMenus?type=-1&page=${currentPage}`).then(res => {
+        setData(res.data.data.result)
+        setNumpage(res.data.data.count)
       })
-    },[check])
+    },[check, currentPage])
     const handleDelete = (id)=>{
-      axios.delete(`/admin/delete_menu?id=${id}`, {headers: {
-        authorization: JSON.stringify(currentUser.token),
-    }})
+      axios.delete(`/admin/delete_menu?id=${id}`)
       setCheck(!check)
       console.log("Xoa thanh cong")
     }
@@ -74,6 +76,15 @@ export const Menu = () => {
             }
             </tbody>
         </table>
+        <div className='page' style={{display: 'flex', justifyContent:'center', margin:'30px 10px'}}>
+        <Stack className="stack" spacing={2}>
+            <Pagination
+              count={numPage}
+              page={currentPage}
+              onChange={(e) => setCurrentPage(parseInt(e.target.textContent))}
+            />
+          </Stack>
+      </div>
     </div>
       )}
           

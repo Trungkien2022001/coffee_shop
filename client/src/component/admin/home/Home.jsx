@@ -33,7 +33,7 @@ export const Home = () => {
               onClick={() => setPage(2)}
               className={page === 2 ? "choose" : " "}
             >
-              Nhân sự
+              Người dùng
             </button>
             <button
               onClick={() => setPage(3)}
