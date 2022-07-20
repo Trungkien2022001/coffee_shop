@@ -8,14 +8,63 @@ async function fetchGetAllMenu(req, res){
     let result
     let count
     if(type == 0 || !type){
-        result = await execQuery(`select * from menu where status <>'Hết hàng' order by id desc limit 16 offset ${offset}`)
-        count = await execQuery(`select count(id) as cnt from menu where status <>'Hết hàng'`)
+        try {
+            result = await execQuery(`select * from menu where status <>'Hết hàng' order by id desc limit 16 offset ${offset}`)
+        } catch (error) {
+           return{
+            err:true,
+            message:'Đã xảy ra lỗi',
+            data: error
+           } 
+        }
+        try {
+            count = await execQuery(`select count(id) as cnt from menu where status <>'Hết hàng'`)
+        } catch (error) {
+           return{
+            err:true,
+            message:'Đã xảy ra lỗi',
+            data: error
+           } 
+        }
     } else if (type == -1){
-        result = await execQuery(`select * from menu order by id desc limit 16 offset ${offset}`)
-        count = await execQuery(`select count(id) as cnt from menu`)
+        try {
+            result = await execQuery(`select * from menu order by id desc limit 16 offset ${offset}`)
+        } catch (error) {
+           return{
+            err:true,
+            message:'Đã xảy ra lỗi',
+            data: error
+           } 
+        }
+        try {
+            count = await execQuery(`select count(id) as cnt from menu`)
+        } catch (error) {
+           return{
+            err:true,
+            message:'Đã xảy ra lỗi',
+            data: error
+           } 
+        }
     } else {
-        result = await execQuery(`select * from menu where status <>'Hết hàng' and category_id = ${type} order by id desc limit 16 offset ${offset}`)
-        count = await execQuery(`select count(id) as cnt from menu where status <>'Hết hàng' and category_id = ${type}`)    
+        try {
+            result = await execQuery(`select * from menu where status <>'Hết hàng' and category_id = ${type} order by id desc limit 16 offset ${offset}`)
+        } catch (error) {
+           return{
+            err:true,
+            message:'Đã xảy ra lỗi',
+            data: error
+           } 
+        }
+        try {
+            count = await execQuery(`select count(id) as cnt from menu where status <>'Hết hàng' and category_id = ${type}`)    
+    
+        } catch (error) {
+           return{
+            err:true,
+            message:'Đã xảy ra lỗi',
+            data: error
+           } 
+        }
     }
     if (result.length == 0 ){
         return{
@@ -34,7 +83,16 @@ async function fetchGetAllMenu(req, res){
 }
 async function fetchMenu(req, res){
     const id = req.query.id
-    let result = await execQuery(`select * from \`menu\` where id = ${id}`)
+    let result 
+    try {
+        result = await execQuery(`select * from \`menu\` where id = ${id}`)
+    } catch (error) {
+       return{
+        err:true,
+        message:'Đã xảy ra lỗi',
+        data: error
+       } 
+    }
     if (result.length == 0 ){
         return{
             err:true,
@@ -61,7 +119,16 @@ async function fetchCreateMenu(req, res){
         err: true,
         message:" ten san pham nay da ton tai trong he thong"
     }
-    const result = await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${name}', ${category_id}, ${price}, ${discount}, '${detail}', '${description}', '${image_path}')`)
+    let result
+    try {
+        result = await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${name}', ${category_id}, ${price}, ${discount}, '${detail}', '${description}', '${image_path}')`)
+    } catch (error) {
+       return{
+        err:true,
+        message:'Đã xảy ra lỗi',
+        data: error
+       } 
+    }
     if(result.length == 0 ){
         return{ 
             err: true,
@@ -100,22 +167,6 @@ async function fetchCreateMenus(req, res){
     //     data: data
     // }
  }
- async function fetchCreateMenus1(req, res){
-  
-
-    const data = await execQuery(`select * from menu`)
-    
-    for(let i = 0; i < 10000; ++i){
-        // const result = await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${name}', ${category_id}, ${price}, ${discount}, '${detail}', '${description}', '${image_path}')`)
-        await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${data[Math.floor(Math.random() * 30)].name}', ${data[Math.floor(Math.random() * 30)].category_id}, ${data[Math.floor(Math.random() * 30)].price}, ${data[Math.floor(Math.random() * 30)].discount}, '${data[Math.floor(Math.random() * 30)].detail}', '${data[Math.floor(Math.random() * 30)].description}', '${data[Math.floor(Math.random() * 30)].image_path}')`)
-    }
-    return{
-        err: false,
-        message:"Them menu thanh cong",
-        data: data
-    }
- }
-
  async function fetchUpdateMenu(req, res){
     const id = req.query.id
     const name = req.body.name||'Ẩn danh'
@@ -125,7 +176,16 @@ async function fetchCreateMenus(req, res){
     const detail = req.body.detail||""
     const description= req.body.description||""
     const image_path= req.body.image_path||""
-    const check1 = await execQuery(`select * from \`menu\` where id = ${id}`)
+    let check1
+    try {
+        check1 = await execQuery(`select * from \`menu\` where id = ${id}`)
+    } catch (error) {
+       return{
+        err:true,
+        message:'Đã xảy ra lỗi',
+        data: error
+       } 
+    }
     if(check1.length == 0){
         return {
             err: true,

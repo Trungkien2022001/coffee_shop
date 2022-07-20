@@ -1,7 +1,16 @@
 const execQuery = require("../../../models")
 
 async function fetchGetAllEquipment(req, res){
-    const result = await execQuery('select * from `equiment`')
+    let result 
+    try {
+        result = await execQuery('select * from `equiment`')
+    } catch (error) {
+       return{
+        err:true,
+        message:'Đã xảy ra lỗi',
+        data: error
+       } 
+    }
     if (result.length == 0 ){
         return{
             err:true,
@@ -16,7 +25,16 @@ async function fetchGetAllEquipment(req, res){
 }
 async function fetchEquipment(req, res){
     const id = req.query.id
-    let result = await execQuery(`select * from \`equiment\` where id = ${id}`)
+    let result 
+    try {     
+        result = await execQuery(`select * from \`equiment\` where id = ${id}`)
+    } catch (error) {
+       return{
+        err:true,
+        message:'Đã xảy ra lỗi',
+        data: error
+       } 
+    }
     if (result.length == 0 ){
         return{
             err:true,
@@ -40,7 +58,17 @@ async function fetchCreateEquipment(req, res){
         err: true,
         message:" ten thiet bi nay da ton tai trong he thong"
     }
-    const result = await execQuery(`insert into \`equiment\` (name, quantity, year_of_manufacture, status) values('${name}', ${quantity}, ${year_of_manufacture}, '${status}')`)
+    let result 
+    try {
+        
+        result = await execQuery(`insert into \`equiment\` (name, quantity, year_of_manufacture, status) values('${name}', ${quantity}, ${year_of_manufacture}, '${status}')`)
+    } catch (error) {
+       return{
+        err:true,
+        message:'Đã xảy ra lỗi',
+        data: error
+       } 
+    }
     if(result.length == 0 ){
         return{ 
             err: true,
@@ -71,7 +99,17 @@ async function fetchCreateEquipment(req, res){
         err: true,
         message:" ten san pham nay da ton tai trong he thong"
     }
-    const result = await execQuery(`update \`equiment\` set name = '${name}', quantity = ${quantity}, year_of_manufacture = ${year_of_manufacture}, status = '${status}' where id = ${id}`)
+    let result 
+    try {
+         result = await execQuery(`update \`equiment\` set name = '${name}', quantity = ${quantity}, year_of_manufacture = ${year_of_manufacture}, status = '${status}' where id = ${id}`)
+    
+    } catch (error) {
+       return{
+        err:true,
+        message:'Đã xảy ra lỗi',
+        data: error
+       } 
+    }
     if(result.length == 0 ){
         return{ 
             err: true,
