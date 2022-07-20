@@ -77,28 +77,28 @@ async function fetchCreateMenu(req, res){
 async function fetchCreateMenus(req, res){
   
 
-    // const data = await execQuery(`select * from menu`)
+    const data = await execQuery(`select * from menu limit 50 offset 0`)
     
-    // for(let i = 0; i < 10000; ++i){
-    //     // const result = await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${name}', ${category_id}, ${price}, ${discount}, '${detail}', '${description}', '${image_path}')`)
-    //     await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${data[Math.floor(Math.random() * 30)].name}', ${data[Math.floor(Math.random() * 30)].category_id}, ${data[Math.floor(Math.random() * 30)].price}, ${data[Math.floor(Math.random() * 30)].discount}, '${data[Math.floor(Math.random() * 30)].detail}', '${data[Math.floor(Math.random() * 30)].description}', '${data[Math.floor(Math.random() * 30)].image_path}')`)
-    // }
-    // return{
-    //     err: false,
-    //     message:"Them menu thanh cong",
-    //     data: data
-    // }
-    const data = await execQuery(`select * from user`)
-    
-    for(let i = 0; i < 1000; ++i){
+    for(let i = 0; i < 10000; ++i){
         // const result = await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${name}', ${category_id}, ${price}, ${discount}, '${detail}', '${description}', '${image_path}')`)
-        await execQuery(`insert into \`user\` (name, username, password, phone, email, address) values('${data[Math.floor(Math.random() * 11)].name}', '${data[Math.floor(Math.random() * 11)].username}', '${data[Math.floor(Math.random() * 11)].password}', '${data[Math.floor(Math.random() * 11)].phone}', '${data[Math.floor(Math.random() * 11)].email}', '${data[Math.floor(Math.random() * 11)].address}')`)
+        await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${data[Math.floor(Math.random() * 30)].name}', ${data[Math.floor(Math.random() * 30)].category_id}, ${data[Math.floor(Math.random() * 30)].price}, ${data[Math.floor(Math.random() * 30)].discount}, '${data[Math.floor(Math.random() * 30)].detail}', '${data[Math.floor(Math.random() * 30)].description}', '${data[Math.floor(Math.random() * 30)].image_path}')`)
     }
     return{
         err: false,
         message:"Them menu thanh cong",
         data: data
     }
+    // const data = await execQuery(`select * from user`)
+    
+    // for(let i = 0; i < 1000; ++i){
+    //     // const result = await execQuery(`insert into \`menu\` (name, category_id, price, discount, detail, description, image_path) values('${name}', ${category_id}, ${price}, ${discount}, '${detail}', '${description}', '${image_path}')`)
+    //     await execQuery(`insert into \`user\` (name, username, password, phone, email, address) values('${data[Math.floor(Math.random() * 11)].name}', '${data[Math.floor(Math.random() * 11)].username}', '${data[Math.floor(Math.random() * 11)].password}', '${data[Math.floor(Math.random() * 11)].phone}', '${data[Math.floor(Math.random() * 11)].email}', '${data[Math.floor(Math.random() * 11)].address}')`)
+    // }
+    // return{
+    //     err: false,
+    //     message:"Them menu thanh cong",
+    //     data: data
+    // }
  }
  async function fetchCreateMenus1(req, res){
   

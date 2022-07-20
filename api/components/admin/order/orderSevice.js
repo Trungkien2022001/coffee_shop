@@ -28,6 +28,21 @@ async function fetchGetAllOrder(req, res){
         message:"Lay danh sach order thanh cong"
     }
 }
+async function fetchGetUserOrder(req, res){
+    const id = req.query.id
+    const result = await execQuery(`select * from \`order\` where user_id=${id}`)
+    if (result.length == 0 ){
+        return{
+            err:true,
+            message:"Bang khong co du lieu"
+        }
+    }
+    return {
+        err:false,
+        data: result,
+        message:"Lay danh sach order thanh cong"
+    }
+}
 async function fetchGetOrder(req, res){
     const id = req.query.id
     let result = await execQuery(`select * from \`order\` where id = ${id}`)
@@ -58,8 +73,9 @@ async function fetchGetOrder(req, res){
     const status = req.body.status||"Thành công"
     const phone = req.body.phone||''
     const address = req.body.address||''
+    const user_id = req.body.user_id||0
     let data_order_detail = req.body.order_detail
-    const result = await execQuery(`insert into \`order\` (username, note, total_cost, payment, status, phone, address) values('${username}', '${note}', ${total_cost}, '${payment}', '${status}', '${phone}', '${address}')`)
+    const result = await execQuery(`insert into \`order\` (username, note, total_cost, payment, status, phone, address, user_id) values('${username}', '${note}', ${total_cost}, '${payment}', '${status}', '${phone}', '${address}',${user_id})`)
     if(result.length == 0 ){
         return{ 
             err: true,
@@ -182,5 +198,6 @@ module.exports = {
     fetchCreateOrder,
     fetchUpdateOrder,
     fetchDeleteOrder,
+    fetchGetUserOrder
 
 }

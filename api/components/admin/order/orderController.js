@@ -1,8 +1,13 @@
 const { errorResponse, successResponse } = require("../../../helper/responseMessage")
-const { fetchGetAllOrder, fetchGetOrder, fetchCreateOrder, fetchUpdateOrder, fetchDeleteOrder } = require("./orderSevice")
+const { fetchGetAllOrder, fetchGetOrder, fetchCreateOrder, fetchUpdateOrder, fetchDeleteOrder, fetchGetUserOrder } = require("./orderSevice")
 
 async function getAllOrder(req, res){
     const result = await fetchGetAllOrder(req, res)
+    if(result.err) res.end(errorResponse(result))
+    else res.status(200).end(successResponse(result))
+}
+async function getUserOrder(req, res){
+    const result = await fetchGetUserOrder(req, res)
     if(result.err) res.end(errorResponse(result))
     else res.status(200).end(successResponse(result))
 }
@@ -28,6 +33,7 @@ async function deleteOrder(req, res){
 }
 
 module.exports = {
+    getUserOrder,
     getAllOrder,
     getOrder,
     createOrder,

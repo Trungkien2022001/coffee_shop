@@ -1,7 +1,5 @@
 const execQuery = require("../../../models")
 
-
-
 async function fetchGetAllUser(req, res){
     const page = req.query.page
     const offset = parseInt(16 * (page - 1))
@@ -22,8 +20,25 @@ async function fetchGetAllUser(req, res){
         message:"Lay danh sach user thanh cong"
     }
 }
-async function fetchGetInfo(req, res){
-    
+async function fetchLoginHistory(req){
+    const id = req.query.id
+    const result = await execQuery(`insert into login_history(user_id) value(${id})`)
+    return {
+        err: false,
+        data: result, 
+        message:"them login thanh cong"
+    }
+}
+async function fetchGetLoginHistory(req){
+    const id = req.query.id
+    const result = await execQuery(`select * from login_history where user_id = ${id}`)
+    return {
+        err: false,
+        data: result, 
+        message:"xem thong tin login thanh cong"
+    }
+}
+async function fetchGetInfo(req, res){ 
     const countUser = await execQuery('select count(*) from `user`')
     const countMenu = await execQuery('select count(*) from `menu`')
     const countOrder = await execQuery('select count(*) from `order`')
@@ -71,5 +86,7 @@ async function fetchDeleteUser(req, res){
 module.exports = {
     fetchGetAllUser,
     fetchDeleteUser,
-    fetchGetInfo
+    fetchGetInfo,
+    fetchLoginHistory,
+    fetchGetLoginHistory
 }

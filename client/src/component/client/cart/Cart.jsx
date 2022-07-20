@@ -13,7 +13,7 @@ export const Cart = () => {
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState('')
   const [note, setNote] = useState('')
-
+  const currentUser = useSelector(state=>state.user)
   const { total_cost, discount, productList } = useSelector(
     (state) => state.cart
   );
@@ -43,6 +43,7 @@ export const Cart = () => {
       address: address,
       payment: payment,
       order_detail,
+      user_id:currentUser.id||0,
       total_cost: total_cost - discount,
       status: 'Thành công'
     }
