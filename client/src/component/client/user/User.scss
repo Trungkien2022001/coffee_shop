@@ -8,20 +8,54 @@
     }
     .infor{
         font-size: 18px;
-        max-width: 400px;
+        max-width: 350px;
         flex: 1;
         .detail{
             .content1{
-                max-width: 350px;
+                max-width: 300px;
                 overflow-x: scroll;
 
             }
         }
     }
     .cart-history{
+        margin-left: 20px;
         flex: 1;
+        .cart-container1{
+            height: 300px;
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+        .cart-container{
+            border-bottom: 1px solid black;
+            padding: 20px 0px;
+            display: block;
+            .part1{
+                display: flex;
+                margin-bottom: 10px;
+                .id{
+                    margin-right: 15px;
+                }
+            }
+            .part2{
+                margin-bottom: 10px;
+                display: flex;
+
+            }
+            .id2{
+                margin-bottom: 10px;
+            }
+        }
     }
     .login-history{
         flex: 1;
+        .login-container{
+            height: 300px;
+            overflow-y: scroll;
+            margin-left: 20px;
+            .item{
+                display: flex;
+            }
+        }
     }
 }

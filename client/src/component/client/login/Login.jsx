@@ -22,6 +22,7 @@ const Login = () => {
       .then((res) => {
         if(!res.data.err){
           alert(res.data.message);
+          axios.post(`/admin/loginhistory?id=${res.data.data[0].id}`)
           dispatch(userSlice.actions.login(res.data.data[0]))  
           setCheck(true) 
         } else{
